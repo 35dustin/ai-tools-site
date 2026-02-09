@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ReviewCard from '../components/ReviewCard.astro';
+import { getCollection } from 'astro:content';
+
+const reviews = (await getCollection('reviews'))
+  .filter(r => r.data.category === 'code-assistants')
+  .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+---
+
+<BaseLayout title="Best AI Code Assistants — Reviews & Comparisons" description="Reviews of AI coding tools for developers. GitHub Copilot, Cursor, Claude Code, and more — tested on real projects.">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <div class="mb-10">
+      <p class="text-accent font-semibold text-sm uppercase tracking-wider mb-2">Category</p>
+      <h1 class="text-3xl sm:text-4xl font-extrabold mb-3">AI Code Assistants</h1>
+      <p class="text-text-secondary max-w-2xl">AI coding tools tested on real projects — not toy examples. We measure code quality, debugging ability, and how well they handle complex codebases.</p>
+    </div>
+    {reviews.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {reviews.map(review => (
+          <ReviewCard
+            title={review.data.title}
+            description={review.data.description}
+            slug={review.id}
+            category={review.data.category}
+            rating={review.data.rating}
+            image={review.data.image}
+            featured={review.data.featured}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="text-text-muted">Reviews coming soon. Check back shortly.</p>
+    )}
+  </section>
+</BaseLayout>

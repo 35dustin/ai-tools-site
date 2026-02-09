@@ -1,0 +1,57 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t border-border bg-bg-secondary mt-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Brand -->
+      <div>
+        <a href="/" class="flex items-center gap-2 text-text-primary font-bold text-lg mb-3">
+          <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714a2.25 2.25 0 00.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M19 14.5l-1.217-1.217a2.25 2.25 0 00-1.591-.659H7.808a2.25 2.25 0 00-1.591.659L5 14.5m14 0v4.25a2.25 2.25 0 01-2.25 2.25H7.25A2.25 2.25 0 015 18.75V14.5" />
+          </svg>
+          AI Tools Review
+        </a>
+        <p class="text-sm text-text-muted leading-relaxed">Honest, hands-on reviews of AI tools. We test every product so you don't have to.</p>
+      </div>
+
+      <!-- Categories -->
+      <div>
+        <h4 class="text-sm font-semibold text-text-primary uppercase tracking-wider mb-3">Categories</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/chatbots" class="text-text-muted hover:text-text-primary transition-colors">AI Chatbots</a></li>
+          <li><a href="/image-gen" class="text-text-muted hover:text-text-primary transition-colors">Image Generators</a></li>
+          <li><a href="/code-assistants" class="text-text-muted hover:text-text-primary transition-colors">Code Assistants</a></li>
+          <li><a href="/writing" class="text-text-muted hover:text-text-primary transition-colors">Writing Tools</a></li>
+          <li><a href="/automation" class="text-text-muted hover:text-text-primary transition-colors">Automation</a></li>
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div>
+        <h4 class="text-sm font-semibold text-text-primary uppercase tracking-wider mb-3">Company</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about" class="text-text-muted hover:text-text-primary transition-colors">About Us</a></li>
+          <li><a href="/disclosure" class="text-text-muted hover:text-text-primary transition-colors">Affiliate Disclosure</a></li>
+          <li><a href="/reviews" class="text-text-muted hover:text-text-primary transition-colors">All Reviews</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <h4 class="text-sm font-semibold text-text-primary uppercase tracking-wider mb-3">Legal</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/disclosure" class="text-text-muted hover:text-text-primary transition-colors">Disclosure Policy</a></li>
+        </ul>
+        <p class="text-xs text-text-muted mt-4 leading-relaxed">
+          Some links on this site are affiliate links. We may earn a commission if you make a purchase. This does not affect our editorial independence.
+        </p>
+      </div>
+    </div>
+
+    <div class="border-t border-border mt-8 pt-8 text-center text-xs text-text-muted">
+      <p>&copy; {currentYear} AI Tools Review. All rights reserved. Powered by a veteran-owned AI company.</p>
+    </div>
+  </div>
+</footer>

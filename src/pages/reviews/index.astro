@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ReviewCard from '../../components/ReviewCard.astro';
+import { getCollection } from 'astro:content';
+
+const allReviews = await getCollection('reviews');
+const sorted = allReviews.sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+---
+
+<BaseLayout title="All AI Tool Reviews" description="Browse our complete library of AI tool reviews. Honest, hands-on assessments of chatbots, image generators, code assistants, and more.">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <h1 class="text-3xl sm:text-4xl font-extrabold mb-2">All Reviews</h1>
+    <p class="text-text-secondary mb-8 max-w-2xl">Every AI tool we've tested, sorted by publish date. Each review is based on real, hands-on usage.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {sorted.map(review => (
+        <ReviewCard
+          title={review.data.title}
+          description={review.data.description}
+          slug={review.id}
+          category={review.data.category}
+          rating={review.data.rating}
+          image={review.data.image}
+          featured={review.data.featured}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

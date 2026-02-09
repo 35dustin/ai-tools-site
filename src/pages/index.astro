@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ReviewCard from '../components/ReviewCard.astro';
+import CTAButton from '../components/CTAButton.astro';
+import { getCollection } from 'astro:content';
+
+const allReviews = await getCollection('reviews');
+const featured = allReviews.filter(r => r.data.featured);
+const recent = allReviews.sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+
+const categories = [
+  { name: 'AI Chatbots', slug: 'chatbots', description: 'Compare top chatbots like Claude, ChatGPT, and Gemini', icon: '💬' },
+  { name: 'Image Generators', slug: 'image-gen', description: 'AI art tools from Midjourney to free alternatives', icon: '🎨' },
+  { name: 'Code Assistants', slug: 'code-assistants', description: 'AI coding tools for developers and engineers', icon: '💻' },
+  { name: 'Writing Tools', slug: 'writing', description: 'AI writing assistants for content and copywriting', icon: '✍️' },
+  { name: 'Automation', slug: 'automation', description: 'Workflow automation with AI-powered tools', icon: '⚡' },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'AI Tools Review',
+  url: Astro.site?.toString(),
+  description: 'Honest, in-depth reviews of AI tools. We test every product so you don\'t have to.',
+  publisher: { '@type': 'Organization', name: 'AI Tools Review' },
+};
+---
+
+<BaseLayout title="Honest AI Tool Reviews & Comparisons" description="In-depth, hands-on reviews of the best AI tools in 2026. Chatbots, image generators, code assistants, and more — tested by real users.">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-accent/5 via-transparent to-transparent"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 relative">
+      <div class="max-w-3xl">
+        <p class="text-accent font-semibold text-sm uppercase tracking-wider mb-4">Independent AI tool reviews</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+          Find the right AI tool.<br />
+          <span class="text-text-secondary">Skip the hype.</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-text-secondary mb-8 max-w-2xl leading-relaxed">
+          We spend weeks testing AI products so you can make informed decisions in minutes. No sponsored rankings, no pay-to-play — just honest assessments.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <CTAButton href="/reviews" text="Browse All Reviews" variant="primary" size="lg" />
+          <CTAButton href="/about" text="How We Review" variant="secondary" size="lg" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Reviews -->
+  {featured.length > 0 && (
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl sm:text-3xl font-bold">Featured Reviews</h2>
+        <a href="/reviews" class="text-sm text-accent hover:text-accent-light transition-colors font-medium">View all &rarr;</a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {featured.map(review => (
+          <ReviewCard
+            title={review.data.title}
+            description={review.data.description}
+            slug={review.id}
+            category={review.data.category}
+            rating={review.data.rating}
+            image={review.data.image}
+            featured={true}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Categories -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <h2 class="text-2xl sm:text-3xl font-bold mb-8">Browse by Category</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {categories.map(cat => (
+        <a href={`/${cat.slug}`} class="group bg-bg-card border border-border rounded-xl p-6 hover:border-border-hover transition-all hover:shadow-lg hover:shadow-accent/5">
+          <div class="text-3xl mb-3">{cat.icon}</div>
+          <h3 class="text-lg font-bold text-text-primary group-hover:text-accent transition-colors mb-1">{cat.name}</h3>
+          <p class="text-sm text-text-secondary">{cat.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Latest Reviews -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <h2 class="text-2xl sm:text-3xl font-bold mb-8">Latest Reviews</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {recent.map(review => (
+        <ReviewCard
+          title={review.data.title}
+          description={review.data.description}
+          slug={review.id}
+          category={review.data.category}
+          rating={review.data.rating}
+          image={review.data.image}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <div class="bg-gradient-to-r from-accent/10 via-accent/5 to-transparent border border-accent/20 rounded-2xl p-8 sm:p-12">
+      <div class="max-w-2xl">
+        <h2 class="text-2xl sm:text-3xl font-bold mb-3">Get the weekly AI rundown</h2>
+        <p class="text-text-secondary mb-6">New tool launches, price changes, and honest takes — delivered every Tuesday. No spam, unsubscribe anytime.</p>
+        <form class="flex flex-col sm:flex-row gap-3 max-w-md">
+          <input
+            type="email"
+            placeholder="your@email.com"
+            class="flex-1 bg-bg-primary border border-border rounded-lg px-4 py-2.5 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent"
+          />
+          <button type="submit" class="bg-accent hover:bg-accent-hover text-white font-semibold rounded-lg px-6 py-2.5 transition-colors whitespace-nowrap">
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

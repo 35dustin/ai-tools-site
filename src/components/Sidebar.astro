@@ -1,0 +1,62 @@
+---
+const categories = [
+  { label: 'AI Chatbots', href: '/chatbots', count: 12 },
+  { label: 'Image Generators', href: '/image-gen', count: 8 },
+  { label: 'Code Assistants', href: '/code-assistants', count: 6 },
+  { label: 'Writing Tools', href: '/writing', count: 10 },
+  { label: 'Automation', href: '/automation', count: 5 },
+];
+
+const popularReviews = [
+  { title: 'Best AI Chatbots 2026', href: '/reviews/best-ai-chatbots-2026' },
+  { title: 'Claude vs ChatGPT vs Gemini', href: '/reviews/claude-vs-chatgpt-vs-gemini' },
+  { title: 'Best Free AI Image Generators', href: '/reviews/best-free-ai-image-generators-2026' },
+];
+---
+
+<aside class="hidden lg:block space-y-8 sticky top-24">
+  <!-- Categories -->
+  <div class="bg-bg-card border border-border rounded-xl p-5">
+    <h3 class="font-bold text-text-primary mb-4 text-sm uppercase tracking-wider">Categories</h3>
+    <ul class="space-y-2">
+      {categories.map(cat => (
+        <li>
+          <a href={cat.href} class="flex items-center justify-between text-sm text-text-secondary hover:text-text-primary transition-colors py-1">
+            <span>{cat.label}</span>
+            <span class="text-xs text-text-muted bg-bg-secondary px-2 py-0.5 rounded-full">{cat.count}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <!-- Popular Reviews -->
+  <div class="bg-bg-card border border-border rounded-xl p-5">
+    <h3 class="font-bold text-text-primary mb-4 text-sm uppercase tracking-wider">Popular Reviews</h3>
+    <ul class="space-y-3">
+      {popularReviews.map(review => (
+        <li>
+          <a href={review.href} class="text-sm text-text-secondary hover:text-accent transition-colors leading-snug block">
+            {review.title}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <!-- Newsletter -->
+  <div class="bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 rounded-xl p-5">
+    <h3 class="font-bold text-text-primary mb-2">Stay Updated</h3>
+    <p class="text-sm text-text-secondary mb-4">Get weekly AI tool reviews and comparisons in your inbox.</p>
+    <form class="space-y-2">
+      <input
+        type="email"
+        placeholder="your@email.com"
+        class="w-full bg-bg-primary border border-border rounded-lg px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent"
+      />
+      <button type="submit" class="w-full bg-accent hover:bg-accent-hover text-white text-sm font-semibold rounded-lg px-3 py-2 transition-colors">
+        Subscribe Free
+      </button>
+    </form>
+  </div>
+</aside>

@@ -1,0 +1,39 @@
+---
+interface Props {
+  href: string;
+  text: string;
+  variant?: 'primary' | 'secondary' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+  external?: boolean;
+}
+
+const { href, text, variant = 'primary', size = 'md', external = false } = Astro.props;
+
+const baseClasses = "inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200";
+
+const variants = {
+  primary: "bg-accent hover:bg-accent-hover text-white shadow-md shadow-accent/20 hover:shadow-lg hover:shadow-accent/30",
+  secondary: "bg-bg-card border border-border hover:border-border-hover text-text-primary hover:bg-bg-hover",
+  outline: "border-2 border-accent text-accent hover:bg-accent hover:text-white",
+};
+
+const sizes = {
+  sm: "text-sm px-4 py-2",
+  md: "text-sm px-6 py-2.5",
+  lg: "text-base px-8 py-3",
+};
+---
+
+<a
+  href={href}
+  class:list={[baseClasses, variants[variant], sizes[size]]}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener noreferrer sponsored" : undefined}
+>
+  {text}
+  {external && (
+    <svg class="w-4 h-4 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+    </svg>
+  )}
+</a>
